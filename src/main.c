@@ -8,11 +8,11 @@
 #define BACKGROUND_COLOR   ((Color) { 26, 26, 26, 255 })
 
 int main(void) {
-    // 게임의 목표 FPS를 설정한다.
-    SetTargetFPS(TARGET_FPS);
-    
     // 게임 창을 생성한다.
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "6pm-crew/play");
+
+    // 게임의 목표 FPS를 설정한다.
+    SetTargetFPS(TARGET_FPS);
 
     // 6PM 로고 파일로 텍스처를 생성한다.
     // 텍스처를 생성하기 전에는 반드시 `InitWindow()`를 호출해야 한다.
