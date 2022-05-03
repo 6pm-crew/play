@@ -15,7 +15,7 @@ int main(void) {
     SetTargetFPS(TARGET_FPS);
 
     // 6PM 로고 파일로 텍스처를 생성한다.
-    // 텍스처를 생성하기 전에는 반드시 `InitWindow()`를 호출해야 한다.
+    // 텍스처를 생성하기 전에 반드시 `InitWindow()`를 호출해야 함을 기억하자!
     Texture2D texture = LoadTexture("res/images/6pm-logo_512x512.png");
     
     // 게임 화면의 경계를 나타내는 직사각형을 정의한다.
