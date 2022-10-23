@@ -44,7 +44,7 @@ INCLUDE_PATH += $(RAYLIB_PATH)/src
 SOURCES := $(SOURCE_PATH)/main.c
 OBJECTS := $(SOURCES:.c=.o)
 
-TARGETS := $(BINARY_PATH)/$(PROJECT_NAME)
+TARGETS := $(BINARY_PATH)/$(PROJECT_NAME).out
 
 HOST_PLATFORM := UNKNOWN
 
@@ -113,5 +113,6 @@ post-build:
 
 clean:
 	@echo "$(PROJECT_PREFIX) Cleaning up."
-	@rm -rf $(BINARY_PATH)/*
+	@rm -rf $(BINARY_PATH)/*.out
+	@rm -rf $(BINARY_PATH)/*.exe
 	@rm -rf $(SOURCE_PATH)/*.o
