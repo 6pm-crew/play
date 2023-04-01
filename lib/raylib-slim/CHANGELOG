@@ -1,13 +1,406 @@
 changelog
 ---------
 
-Current Release:    raylib 4.0.0 (05 November 2021)
+Current Release:    raylib 4.5.0 (18 March 2023)
+
+-------------------------------------------------------------------------
+Release:     raylib 4.5 (18 March 2023)
+-------------------------------------------------------------------------
+KEY CHANGES:
+ - ADDED: Improved ANGLE support on Desktop platforms
+ - ADDED: rcamera module, simpler and more extendable
+ - ADDED: Support for M3D models and M3D/GLTF animations
+ - ADDED: Support QOA audio format (import/export)
+ - ADDED: rl_gputex module for compressed textures loading
+ - REDESIGNED: rlgl module for automatic render-batch limits checking
+ - REDESIGNED: rshapes module to minimize the rlgl dependency
+
+Detailed changes:
+[core] ADDED: RAYLIB_VERSION_* values to raylib.h (#2856) by @RobLoach
+[core] ADDED: Basic gamepad support for Android (#2709) by @deniska
+[core] ADDED: Support CAPS/NUM lock keys registering if locked
+[core] ADDED: _GNU_SOURCE define on Linux (#2729)
+[core] ADDED: SetWindowIcons() to set multiple icon image sizes
+[core] `WARNING`: RENAMED: Exported raylib version symbol to raylib_version #2671
+[core] REMOVED: Touch points on touch up events on Android (#2711) by @deniska
+[core] REVIEWED: Window position setup on InitWindow() (#2732) by @RandomErrorMessage
+[core] REVIEWED: Touchscreen input related functions on Android (#2702) by @deniska
+[core] REVIEWED: Viewport scaling on Android after context rebind (#2703) by @deniska
+[core] REVIEWED: ScanDirectoryFilesRecursively() (#2704)
+[core] REVIEWED: Gamepad mappings with latest gamecontrollerdb (#2725)
+[core] REVIEWED: Monitor order check on app initialization
+[core] REVIEWED: Application monitor when opening (#2728, #2731) by @RandomErrorMessage
+[core] REVIEWED: Gestures module to use GetTime() if available (#2733) by @RobLoach
+[core] REVIEWED: Resolve GLFW3 some symbols re-definition of windows.h in glfw3native (#2643) by @daipom
+[core] REVIEWED: OpenURL(), string buffer too short sometimes
+[core] REVIEWED: GetRandomValue() range limit warning (#2800) by @Pere001
+[core] REVIEWED: UnloadDirectoryFiles()
+[core] REVIEWED: GetKeyPressed(), out of range issue (#2814) by @daipom
+[core] REVIEWED: GetTime(), renamed variable 'time' to 'nanoSeconds' (#2816) by @jtainer
+[core] REVIEWED: LoadShaderFromMemory(), issue with shader linkage
+[core] REVIEWED: Avoid possible gamepad index as -1 (#2839)
+[core] REVIEWED: SetShaderValue*(), avoid setup uniforms for invalid locations
+[core] REVIEWED: GetClipboardText() on PLATFORM_WEB, permissions issues
+[core] REVIEWED: Initial window position for display-sized fullscreen (#2742) by @daipom
+[core] REVIEWED: Sticky touches input (#2857) by @ImazighenGhost
+[core] REVIEWED: Enable GetWindowHandle() on macOS (#2915) by @Not-Nik
+[core] REVIEWED: Window position always inits centered in current monitor
+[core] REVIEWED: IsWindowFocused() to consider Android App state (#2935)
+[core] REVIEWED: GetMonitorWidth() and GetMonitorHeight() (#2934)
+[core] REVIEWED: GetWindowHandle() to return Linux window (#2938)
+[core] REVIEWED: WindowDropCallback(), additional security check (#2943)
+[core] REVIEWED: Security checks for emscripten_run_script() (#2954)
+[utils] REVIEWED: TraceLog() message size limit overflow
+[rcamera] REDESIGNED: New implementation from scratch (#2563) by @Crydsch
+[rcamera] REVIEWED: Make orbital camera work as expected (#2926) by @JeffM2501
+[rcamera] REVIEWED: Multiple reviews on the new implementation
+[rcamera] ADDED: UpdateCameraPro(), supporting custom user inputs
+[rlgl] ADDED: OpenGL ES 2.0 support on PLATFORM_DESKTOP (#2840) by @wtnbgo
+[rlgl] ADDED: Separate blending modes for color and alpha, BLEND_CUSTOM_SEPARATE (#2741)
+[rlgl] ADDED: rlSetBlendFactorsSeparate and custom blend mode modification checks (#2741) by @pure01fx
+[rlgl] ADDED: RL_TEXTURE_MIPMAP_BIAS_RATIO support to `rlTextureParameters()` for OpenGL 3.3 #2674
+[rlgl] ADDED: rlCubemapParameters() (#2862) by @GithubPrankster
+[rlgl] ADDED: rlSetCullFace() (#2797) by @jtainer
+[rlgl] REMOVED: Mipmaps software generation for OpenGL 1.1
+[rlgl] REVIEWED: Check for extensions before enabling them (#2706) by @Not-Nik
+[rlgl] REVIEWED: SSBO usage to avoid long long data types
+[rlgl] REVIEWED: Enable DXT compression on __APPLE__ targets (#2694) by @Not-Nik
+[rlgl] REVIEWED: enums exposed and description comments
+[rlgl] REVIEWED: rlBindImageTexture(), correct data types (#2808) by @planetis-m
+[rlgl] REVIEWED: rlMultMatrixf(), use const pointer (#2807) by @planetis-m
+[rlgl] REVIEWED: Expose OpenGL blending mode factors and functions/equations
+[rlgl] REVIEWED: rLoadTextureDepth(), issue with depth textures on WebGL (#2824)
+[rlgl] REVIEWED: rlUnloadFramebuffer() (#2937)
+[raymath] ADDED: Vector2LineAngle() (#2887)
+[raymath] REVIEWED: Vector2Angle() (#2829, #2832) by @AlxHnr, @planetis-m
+[shapes] ADDED: CheckCollisionPointPoly() (#2685) by @acejacek
+[shapes] REVIEWED: DrawPixel*(), use RL_QUADS/RL_TRIANGLES (#2750) by @hatkidchan
+[shapes] REVIEWED: DrawLineBezier*(), fix bezier line breaking (#2735, #2767) by @nobytesgiven
+[textures] ADDED: ColorBrightness()
+[textures] ADDED: ColorTint()
+[textures] ADDED: ColorContrast()
+[textures] ADDED: Support for PNM images (.ppm, .pgm)
+[textures] ADDED: GenImagePerlinNoise()
+[textures] ADDED: GenImageText(), generate grayscale image from text byte data
+[textures] ADDED: ImageDrawCircleLines(), ImageDrawCircleLinesV() (#2713) by @RobLoach
+[textures] ADDED: ImageBlurGaussian() (#2770) by @nobytesgiven
+[textures] REVIEWED: Image fileformat support: PIC, PNM
+[textures] REVIEWED: ImageTextEx() and ImageDrawTextEx() scaling (#2756) by @hatkidchan
+[textures] `WARNING`: REMOVED: DrawTextureQuad()
+[textures] `WARNING`: REMOVED: DrawTexturePoly(), function moved to example: `textures_polygon`
+[textures] `WARNING`: REMOVED: DrawTextureTiled(),function implementation moved to the textures_tiled.c
+[text] ADDED: GetCodepointPrevious()
+[text] ADDED: UnloadUTF8(), aligned with LoadUTF8()
+[text] `WARNING`: RENAMED: TextCodepointsToUTF8() to LoadUTF8()
+[text] `WARNING`: RENAMED: GetCodepoint() -> GetCodepointNext()
+[text] REDESIGNED: GetCodepointNext()
+[text] REVIEWED: MeasureTextEx(), avoid crash on bad data
+[text] REVIEWED: UnloadFontData(), avoid crash on invalid font data
+[models] ADDED: Support M3D model file format (meshes and materials) (#2648) by @bztsrc
+[models] ADDED: Support for M3D animations (#2648) by @bztsrc
+[models] ADDED: GLTF animation support (#2844) by @charles-l
+[models] ADDED: DrawCapsule() and DrawCapsuleWires() (#2761) by @IanBand
+[models] ADDED: LoadMaterials(), MTL files loading, same code as OBJ loader (#2872) by @JeffM2501
+[models] `WARNING`: REMOVED: UnloadModelKeepMeshes()
+[models] `WARNING`: REMOVED: DrawCubeTexture(), DrawCubeTextureRec(), functions moved to new example: `models_draw_cube_texture`
+[models] REVIEWED: DrawMesh(), using SHADER_LOC_COLOR_SPECULAR as a material map (#2908) by @haved
+[models] REVIEWED: LoadM3D() vertex color support (#2878) by @GithubPrankster, @bztsrc
+[models] REVIEWED: GenMeshHeightmap() (#2716)
+[models] REVIEWED: LoadIQM() (#2676)
+[models] REVIEWED: Simplify .vox signature check (#2752) by @CrezyDud
+[models] REVIEWED: LoadIQM(), support bone names loading if available (#2882) by @PencilAmazing
+[models] REVIEWED: GenMeshTangents(), avoid crash on missing texcoords data (#2927)
+[audio] ADDED: Full support for QOA audio file format
+[audio] ADDED: Mixed audio processor (#2929) by @hatkidchan
+[audio] ADDED: IsWaveReady()`, IsSoundReady(), IsMusicReady() (#2892) by @RobLoach
+[audio] `WARNING`: REMOVED: Multichannel audio API: PlaySoundMulti(), StopSoundMulti()
+[audio] REVIEWED: Clear PCM buffer state when closing audio device (#2736) by @veins1
+[audio] REVIEWED: Android backend selected (#2118, #2875) by @planetis-m
+[audio] REVIEWED: Change default threading model for COM objects in miniaudio
+[multi] ADDED: IsShaderReady(), IsImageReady(), IsFontReady() (#2892) by @RobLoach
+[multi] ADDED: IsModelReady(), IsMaterialReady(), IsTextureReady(), IsRenderTextureReady() (#2895) by @RobLoach
+[multi] REVIEWED: Multiple code/comment typos by @sDos280
+[multi] REVIEWED: Grammar mistakes and typos (#2914) by @stickM4N
+[multi] REVIEWED: Use TRACELOG() macro instead of TraceLog() in internal modules (#2881) by @RobLoach
+[examples] ADDED: textures_textured_curve (#2821) by @JeffM2501
+[examples] ADDED: models_draw_cube_texture
+[examples] ADDED: models_loading_m3d (#2648) by @bztsrc
+[examples] ADDED: shaders_write_depth (#2836) by @BugraAlptekinSari
+[examples] ADDED: shaders_hybrid_render (#2919) by @BugraAlptekinSari
+[examples] REMOVED: audio_multichannel_sound
+[examples] RENAMED: Several shaders for naming consistency (#2707)
+[examples] RENAMED: lighting_instanced.fs to lighting_instancing.fs (glsl100) (#2805) by @gtrxAC
+[examples] REVIEWED: core_custom_logging.c (#2692) by @hartmannathan
+[examples] REVIEWED: core_camera_2d_platformer (#2687) by @skylar779
+[examples] REVIEWED: core_input_gamepad.c (#2903) by @planetis-m
+[examples] REVIEWED: core_custom_frame_control
+[examples] REVIEWED: core_drop_files (#2943)
+[examples] REVIEWED: text_rectangle_bounds (#2746) by @SzieberthAdam
+[examples] REVIEWED: textures_image_processing, added gaussian blurring (#2775) by @nobytesgiven
+[examples] REVIEWED: models_billboard, highlighting rotation and draw order (#2779) by @nobytesgiven
+[examples] REVIEWED: core_loading_thread, join thread on completion (#2845) by @planetis-m
+[examples] REVIEWED: models_loading_gltf
+[examples] REVIEWED: Shader lighting.fs for GLSL120 (#2651)
+[examples] REVIEWED: text_codepoints_loading.c
+[parser] REVIEWED: raylib-parser Makefile (#2765) by @Peter0x44
+[build] ADDED: Packaging for distros with deb-based and rpm-based packages (#2877) by @KOLANICH
+[build] ADDED: Linkage library -latomic on Linux (only required for ARM32)
+[build] ADDED: Required frameworks on macOS (#2793) by @SpexGuy
+[build] ADDED: WASM support for Zig build (#2901) by @Not-Nik
+[build] ADDED: New raylib examples as VS2022 project (to raylib solution)
+[build] REVIEWED: config.h format and inconsistencies
+[build] REVIEWED: Zig build to latest master, avoid deprecated functions (#2910) by @star-tek-mb
+[build] REVIEWED: CMake project template to easily target raylib version (#2700) by @RobLoach
+[build] REVIEWED: PATH for PLATFORM_WEB target (#2647) by @futureapricot
+[build] REVIEWED: build.zig to let user decide how to set build mode and linker fixes by @InKryption
+[build] REVIEWED: Deprecation error on Android API higher than 23 (#2778) by @anggape
+[build] REVIEWED: Android x86 Architecture name (#2783) by @IsaacTCB
+[build] REVIEWED: examples/build.zig for the latest Zig version (#2786) by @RomanAkberov
+[utils] REVIEWED: ExportDataAsCode() data types (#2787) by @RGDTAB
+[build] REVIEWED: Makefile emscripten path (#2785) by @Julianiolo
+[build] REVIEWED: Several compilation warnings (for strict rules)
+[build] REVIEWED: All github workflows using deprecated actions
+[build] REVIEWED: CMake when compiling for web (#2820) by @object71
+[build] REVIEWED: DLL build on Windows (#2951) by @Skaytacium
+[build] REVIEWED: Avoid MSVC warnings in raylib project (#2871) by @JeffM2501
+[build] REVIEWED: Paths in .bat files to build examples (#2870) by @masoudd
+[build] REVIEWED: CMake, use GLVND for old cmake versions (#2826) by @simendsjo
+[build] REVIEWED: Makefile, multiple tweaks
+[build] REVIEWED: CI action: linux_examples.yml
+[build] REVIEWED: CI action: cmake.yml
+[bindings] ADDED: h-raylib (Haskell) by @Anut-py
+[bindings] ADDED: raylib-c3 (C3) by @Its-Kenta
+[bindings] ADDED: raylib-umka (Umka) by @RobLoach
+[bindings] ADDED: chez-raylib (Chez Scheme) by @Yunoinsky
+[bindings] ADDED: raylib-python-ctypes (Python) by @sDos280
+[bindings] ADDED: claylib (Common Lisp) by @shelvick
+[bindings] ADDED: raylib-vapi (Vala) by @lxmcf
+[bindings] ADDED: TurboRaylib (Object Pascal) by @turborium
+[bindings] ADDED: Kaylib (Kotlin/Native) by @Its-Kenta
+[bindings] ADDED: Raylib-Nelua (Nelua) by @Its-Kenta
+[bindings] ADDED: Cyber (Cyber) by @fubark
+[bindings] ADDED: raylib-sunder (Sunder) by @ashn-dot-dev
+[bindings] ADDED: raylib BQN (#2962) by @Brian-ED
+[misc] REVIEWED: Update external libraries to latest versions
+
+-------------------------------------------------------------------------
+Release:     raylib 4.2 (11 August 2022)
+-------------------------------------------------------------------------
+KEY CHANGES:
+ - REMOVED: extras libraries (raygui, physac, rrem, reasings, raudio.h) moved to independent separate repos
+ - UPDATED: examples: Added creation and update raylib versions and assigned **DIFFICULTY LEVELS**!
+ - rres 1.0: A custom resource-processing and packaging file format, including tooling and raylib integration examples
+ - raygui 3.2: New version of the immediate-mode gui system for tools development with raylib
+ - raylib_parser: Multiple improvements of the raylib parser to automatize bindings generation
+ - ADDED: New file system API: Reviewed to be more aligned with raylib conventions and one advance function added
+ - ADDED: New audio stream processors API (_experimental_): Allowing to add custom audio stream data processors using callbacks
+
+Detailed changes:
+[multi] ADDED: Frequently Asked Questions (FAQ.md)
+[multi] REVIEWED: Multiple trace log messages
+[multi] REVIEWED: Avoid some float to double promotions
+[multi] REVIEWED: Some functions input parametes that should be const
+[multi] REVIEWED: Variables initialization, all variables are initialized on declaration
+[multi] REVIEWED: Static array buffers are always re-initialized with memset()
+[multi] `WARNING`: RENAMED: Some function input parameters from "length" to "size"
+[core] ADDED: GetApplicatonDirectory() (#2256, #2285, #2290) by @JeffM2501
+[core] ADDED: raylibVersion symbol, it could be required by some bindings (#2190)
+[core] ADDED: SetWindowOpacity() (#2254) by @tusharsingh09
+[core] ADDED: GetRenderWidth() and GetRenderHeight() by @ArnaudValensi
+[core] ADDED: EnableEventWaiting() and DisableEventWaiting()
+[core] ADDED: GetFileLength()
+[core] ADDED: Modules info at initialization
+[core] ADDED: Support clipboard copy/paste on web
+[core] ADDED: Support OpenURL() on Android platform (#2396) by @futureapricot
+[core] ADDED: Support MOUSE_PASSTHROUGH (#2516)
+[core] ADDED: GetMouseWheelMoveV() (#2517) by @schveiguy
+[core] `WARNING`: REMOVED: LoadStorageValue() / SaveStorageValue(), moved to example
+[core] `WARNING`: RENAMED: GetDirectoryFiles() to LoadDirectoryFiles()
+[core] `WARNING`: RENAMED: `ClearDroppedFiles()` to `UnloadDroppedFiles()`
+[core] `WARNING`: RENAMED: GetDroppedFiles() to LoadDroppedFiles()
+[core] `WARNING`: RENAMED: `ClearDirectoryFiles()` to `UnloadDirectoryFiles()`
+[core] `WARNING`: REDESIGNED: WaitTime() argument from milliseconds to seconds (#2506) by @flashback-fx
+[core] REVIEWED: GetMonitorWidth()/GetMonitorHeight() by @gulrak
+[core] REVIEWED: GetDirectoryFiles(), maximum files allocation (#2126) by @ampers0x26
+[core] REVIEWED: Expose MAX_KEYBOARD_KEYS and MAX_MOUSE_BUTTONS (#2127)
+[core] REVIEWED: ExportMesh() (#2138)
+[core] REVIEWED: Fullscreen switch on PLATFORM_WEB
+[core] REVIEWED: GetMouseWheelMove(), fixed bug
+[core] REVIEWED: GetApplicationDirectory() on macOS (#2304)
+[core] REVIEWED: ToggleFullscreen()
+[core] REVIEWED: Initialize/reset CORE.inputs global state (#2360)
+[core] REVIEWED: MouseScrollCallback() (#2371)
+[core] REVIEWED: SwapScreenBuffers() for PLATFORM_DRM
+[core] REVIEWED: WaitTime(), fix regression causing video stuttering (#2503) by @flashback-fx
+[core] REVIEWED: Mouse device support on PLATFORM_DRM (#2381)
+[core] REVIEWED: Support OpenBSD timming functions
+[core] REVIEWED: Improved boolean definitions (#2485) by @noodlecollie
+[core] REVIEWED: TakeScreenshot(), use GetWindowScaleDPI() to calculate size in screenshot/recording (#2446) by @gulrak
+[core] REVIEWED: Remove fps requirement for drm connector selection (#2468) by @Crydsch
+[core] REVIEWED: IsFileExtension() (#2530)
+[camera] REVIEWED: Some camera improvements (#2563)
+[rlgl] ADDED: Premultiplied alpha blend mode (#2342) by @megagrump
+[rlgl] REVIEWED: VR rendering not taking render target size into account (#2424) by @FireFlyForLife
+[rlgl] REVIEWED: Set rlgl internal framebuffer (#2420)
+[rlgl] REVIEWED: rlGetCompressedFormatName()
+[rlgl] REVIEWED: Display OpenGL 4.3 capabilities with a compile flag (#2124) by @GithubPrankster
+[rlgl] REVIEWED: rlUpdateTexture()
+[rlgl] REVIEWED: Minimize buffer overflow probability
+[rlgl] REVIEWED: Fix scissor mode on macOS (#2170) by @ArnaudValensi
+[rlgl] REVIEWED: Clear SSBO buffers on loading (#2185)
+[rlgl] REVIEWED: rlLoadShaderCode(), improved shader loading code
+[rlgl] REVIEWED: Comment notes about custom blend modes (#2260) by @glorantq
+[rlgl] REVIEWED: rlGenTextureMipmaps()
+[rlgl] REVIEWED: rlTextureParameters()
+[raymath] ADDED: Wrap() (#2522) by @Tekkitslime
+[raymath] ADDED: Vector2Transform()
+[raymath] ADDED: Vector2DistanceSqr() (#2376) by @AnilBK
+[raymath] ADDED: Vector3DistanceSqr() (#2376) by @AnilBK
+[raymath] ADDED: Vector2ClampValue(), Vector3ClampValue() (#2428) by @saccharineboi
+[raymath] ADDED: Vector3RotateByAxisAngle() (#2590) by @Crydsch
+[raymath] `WARNING`: REDESIGNED: Vector2Angle() returns radians instead of degrees (#2193) by @schveiguy
+[raymath] `WARNING`: REMOVED: MatrixNormalize() (#2412)
+[raymath] REVIEWED: Fix inverse length in Vector2Normalize() (#2189) by @HarriP
+[raymath] REVIEWED: Vector2Angle() not working as expected (#2196) by @jdeokkim
+[raymath] REVIEWED: Vector2Angle() and Vector3Angle() (#2203) by @trikko
+[raymath] REVIEWED: QuaternionInvert(), code simplified (#2324) by @megagrump
+[raymath] REVIEWED: QuaternionScale() (#2419) by @tana
+[raymath] REVIEWED: Vector2Rotate(), optimized (#2340) by @jdeokkim
+[raymath] REVIEWED: QuaternionFromMatrix(), QuaternionEquals() (#2591) by @kirigirihitomi
+[raymath] REVIEWED: MatrixRotate*() (#2595, #2599) by @GoodNike
+[shapes] REVIEWED: CheckCollision*() consistency
+[shapes] REVIEWED: DrawRectanglePro(), support TRIANGLES drawing
+[textures] ADDED: Support for QOI image format
+[textures] REVIEWED: ImageColorTint(), GetImageColor(), ImageDrawRectangleRec(), optimized functions (#2429) by @AnilBK
+[textures] REVIEWED: LoadTextureFromImage(), allow texture loading with no data transfer
+[textures] REVIEWED: ImageDraw(), comment to note that f32bit is not supported (#2222)
+[textures] REVIEWED: DrawTextureNPatch(), avoid batch overflow (#2401) by @JeffM2501
+[textures] REVIEWED: DrawTextureTiled() (#2173)
+[textures] REVIEWED: GenImageCellular() (#2178)
+[textures] REVIEWED: LoadTextureCubemap() (#2223, #2224)
+[textures] REVIEWED: Export format for float 32bit
+[textures] REVIEWED: ExportImage(), support export ".jpeg" files
+[textures] REVIEWED: ColorAlphaBlend() (#2524) by @royqh1979
+[textures] REVIEWED: ImageResize() (#2572)
+[textures] REVIEWED: ImageFromImage() (#2594) by @wiertek
+[text] ADDED: ExportFontAsCode()
+[text] ADDED: DrawTextCodepoints() (#2308) by @siddharthroy12
+[text] REVIEWED: TextIsEqual(), protect from NULLs (#2121) by @lukekras
+[text] REVIEWED: LoadFontEx(), comment to specify how to get the default character set (#2221) by @JeffM2501
+[text] REVIEWED: GenImageFontAtlas(), increase atlas size guesstimate by @megagrump
+[text] REVIEWED: GetCodepoint() (#2201)
+[text] REVIEWED: GenImageFontAtlas() (#2556)
+[text] REVIEWED: ExportFontAsCode() to use given font padding (#2525) by @TheTophatDemon
+[models] ADDED: Reference code to load bones id and weight data for animations
+[models] `WARNING`: REMOVED: GetRayCollisionModel() (#2405)
+[models] REMOVED: GenMeshBinormals()
+[models] REVIEWED: External library: vox_loader.h, 64bit issue (#2186)
+[models] REVIEWED: Material color loading when no texture material is available (#2298) by @royqh1979
+[models] REVIEWED: Fix Undefined Symbol _ftelli64 in cgltf (#2319) by @audinue
+[models] REVIEWED: LoadGLTF(), fix memory leak (#2441, #2442) by @leomonta
+[models] REVIEWED: DrawTriangle3D() batch limits check (#2489)
+[models] REVIEWED: DrawBillboardPro() (#2494)
+[models] REVIEWED: DrawMesh*() issue (#2211)
+[models] REVIEWED: ExportMesh() (#2220)
+[models] REVIEWED: GenMeshCylinder() (#2225)
+[audio] `WARNING`: ADDED: rAudioProcessor pointer to AudioStream struct (used by Sound and Music structs)
+[audio] ADDED: SetSoundPan(), SetMusicPan(), SetAudioStreamPan(), panning support (#2205) by ptarabbia
+[audio] ADDED: Audio stream input callback (#2212) by ptarabbia
+[audio] ADDED: Audio stream processors support (#2212) by ptarabbia
+[audio] REVIEWED: GetMusicTimePlayed(), incorrect value after the stream restarted for XM audio (#2092 #2215) by @ptarabbia
+[audio] REVIEWED: Turn on interpolation for XM playback (#2216) by @ptarabbia
+[audio] REVIEWED: Fix crash with delay example (#2472) by @ptarabbia
+[audio] REVIEWED: PlaySoundMulti() (#2231)
+[audio] REVIEWED: ExportWaveAsCode()
+[audio] REVIEWED: UpdateMusicStream(), reduce dynamic allocations (#2532) by @dbechrd
+[audio] REVIEWED: UpdateMusicStream() to support proper stream looping (#2579) by @veins1
+[utils] ADDED: ExportDataAsCode()
+[utils] REVIEWED: Force flush stdout after trace messages (#2465) by @nagy
+[easings] ADDED: Function descriptions (#2471) by @RobLoach
+[camera] REVIEWED: Fix free camera panning in the wrong direction (#2347) by @DavidLyhedDanielsson
+[examples] ADDED: core_window_should_close
+[examples] ADDED: core_2d_camera_mouse_zoom (#2583) by @JeffM2501
+[examples] ADDED: shapes_top_down_lights (#2199) by @JeffM2501
+[examples] ADDED: textures_fog_of_war
+[examples] ADDED: textures_gif_player
+[examples] ADDED: text_codepoints_loading
+[examples] ADDED: audio_stream_effects
+[examples] REMOVED: core_quat_conversion, not working properly
+[examples] REMOVED: raudio_standalone, moved to raudio repo
+[examples] RENAMED: textures_rectangle -> textures_sprite_anim
+[examples] REVIEWED: core_input_gamepad, improve joystick visualisation (#2390) by @kristianlm
+[examples] REVIEWED: textures_draw_tiled
+[examples] REVIEWED: shaders_mesh_instancing, free allocated matrices (#2425) by @AnilBK
+[examples] REVIEWED: shaders_raymarching
+[examples] REVIEWED: audio_raw_stream (#2205) by ptarabbia
+[examples] REVIEWED: audio_music_stream
+[examples] REVIEWED: shaders_mesh_instancing, simplified
+[examples] REVIEWED: shaders_basic_lighting, rlights.h simplified
+[examples] REVIEWED: All examples descriptions, included creation/update raylib versions
+[parser] ADDED: Defines to parser (#2269) by @iskolbin
+[parser] ADDED: Aliases to parser (#2444) by @lazaray
+[parser] ADDED: Parse struct descriptions (#2214) by @eutro
+[parser] ADDED: Parse enum descriptions and value descriptions (#2208) by @eutro
+[parser] ADDED: Lua output format for parser by @iskolbin
+[parser] ADDED: Makefile for raylib_parser by @iskolbin
+[parser] ADDED: Support for truncating parser input (#2464) by @lazaray
+[parser] ADDED: Support for calculated defines to parser (#2463) by @lazaray
+[parser] REVIEWED: Update parser files (#2125) by @catmanl
+[parser] REVIEWED: Fix memory leak in parser (#2136) by @ronnieholm
+[parser] REVIEWED: EscapeBackslashes()
+[parser] REVIEWED: Parser improvements (#2461 #2462) by @lazaray
+[bindings] ADDED: License details for BINDINGS
+[bindings] ADDED: dart-raylib (#2149) by @wolfenrain
+[bindings] ADDED: raylib-cslo (#2169) by @jasonswearingen
+[bindings] ADDED: raylib-d (#2194) by @schveiguy
+[bindings] ADDED: raylib-guile (#2202) by @petelliott
+[bindings] ADDED: raylib-scopes (#2238) by @salotz
+[bindings] ADDED: naylib (Nim) (#2386) by @planetis-m
+[bindings] ADDED: raylib.jl (Julia) (#2403) by @irishgreencitrus
+[bindings] ADDED: raylib.zig (#2449) by @ryupold
+[bindings] ADDED: racket-raylib (#2454) by @eutro
+[bindings] ADDED: raylibr (#2611) by @ramiromagno
+[bindings] ADDED: Raylib.4.0.Pascal (#2617) by @sysrpl
+[bindings] REVIEWED: Multiple bindings updated to raylib 4.0
+[build] ADDED: VS2022 project
+[build] ADDED: Support macOS by zig build system (#2175)
+[build] ADDED: Support custom modules selection on compilation
+[build] ADDED: Minimal web shell for WebAssembly compilation
+[build] ADDED: BSD support for zig builds (#2332) by @zigster64
+[build] ADDED: Repology badge (#2367) by @jubalh
+[build] ADDED: Support DLL compilation with TCC compiler (#2569) by @audinue
+[build] ADDED: Missing examples to VS2022 examples solution
+[build] REMOVED: VS2019 project (unmaintained)
+[build] REMOVED: SUPPORT_MOUSE_CURSOR_POINT config option
+[build] REVIEWED: Fixed RPi make install (#2217) by @wereii
+[build] REVIEWED: Fix build results path on Linux and RPi (#2218) by @wereii
+[build] REVIEWED: Makefiles debug flag
+[build] REVIEWED: Fixed cross-compilation from x86-64 to RPi (#2233) by @pitpit
+[build] REVIEWED: All Makefiles, simplified
+[build] REVIEWED: All Makefiles, improve organization
+[build] REVIEWED: All Makefiles, support CUSTOM_CFLAGS
+[build] REVIEWED: Fixed compiling for Android using CMake (#2270) by @hero2002
+[build] REVIEWED: Make zig build functionality available to zig programs (#2271) by @Not-Nik
+[build] REVIEWED: Update CMake project template with docs and web (#2274) by @RobLoach
+[build] REVIEWED: Update VSCode project to work with latest makefile and web (#2296) by @phil-shenk
+[build] REVIEWED: Support audio examples compilation with external glfw (#2329) by @locriacyber
+[build] REVIEWED: Fix "make clean" target failing when shell is not cmd (#2338) by @Peter0x44
+[build] REVIEWED: Makefile linkage -latomic, required by miniaudio on ARM 32bit #2452
+[build] REVIEWED: Update raylib-config.cmake (#2374) by @marcogmaia
+[build] REVIEWED: Simplify build.zig to not require user to specify raylib path (#2383) by @Hejsil
+[build] REVIEWED: Fix OpenGL 4.3 graphics option in CMake (#2427) by @GoldenThumbs
+[extras] `WARNING`: REMOVED: physac from raylib sources/examples, use github.com/raysan5/physac
+[extras] `WARNING`: REMOVED: raygui from raylib/src/extras, use github.com/raysan5/raygui
+[extras] `WARNING`: REMOVED: rmem from raylib/src/extras, moved to github.com/raylib-extras/rmem
+[extras] `WARNING`: REMOVED: easings from raylib/src/extras, moved to github.com/raylib-extras/reasings
+[extras] `WARNING`: REMOVED: raudio.h from raylib/src, moved to github.com/raysan5/raudio
+[misc] REVIEWED: Update some external libraries to latest versions
 
 -------------------------------------------------------------------------
 Release:     raylib 4.0 - 8th Anniversary Edition (05 November 2021)
 -------------------------------------------------------------------------
 KEY CHANGES:
- - Naming consistency and coherency: Complete review of the library: sintax, naming, comments, decriptions, logs...
+ - Naming consistency and coherency: Complete review of the library: syntax, naming, comments, decriptions, logs...
  - Event Automation System: Support for input events recording and automatic re-playing, useful for automated testing and more!
  - Custom game-loop control: Intended for advance users that want to control the events polling and the timming mechanisms
  - rlgl 4.0: Completely decoupling from platform layer and raylib, intended for standalone usage as single-file header-only
@@ -15,7 +408,7 @@ KEY CHANGES:
  - raygui 3.0: Complete review and official new release, more portable and self-contained, intended for tools development
  - raylib_parser: New tool to parse raylib.h and extract all required info into custom output formats (TXT, XML, JSON...)
  - Zig and Odin official support
- 
+
 Detailed changes:
 [core] ADDED: Support canvas resizing on web (#1840) by @skylersaleh
 [core] ADDED: GetMouseDelta() (#1832) by @adricoin2010
@@ -54,7 +447,7 @@ Detailed changes:
 [shapes] ADDED: RenderPolyLinesEx() (#1758) by @lambertwang
 [shapes] ADDED: DrawLineBezierCubic() (#2021) by @SAOMDVN
 [textures] ADDED: GetImageColor() #2024
-[textures] REMOVED: GenImagePerlinNoise() 
+[textures] REMOVED: GenImagePerlinNoise()
 [textures] RENAMED: GetTextureData() to LoadImageFromTexture()
 [textures] RENAMED: GetScreenData() to LoadImageFromScreen()
 [textures] REVIEWED: ExportImage() to use SaveFileData() (#1779)
@@ -170,8 +563,8 @@ Detailed changes:
 [core] RENAMED: LoadShaderCode() to LoadShaderFromMemory() (#1690)
 [core] RENAMED: SetMatrixProjection() to rlSetMatrixProjection()
 [core] RENAMED: SetMatrixModelview() to rlSetMatrixModelview()
-[core] RENAMED: GetMatrixModelview() to rlGetMatrixModelview()      
-[core] RENAMED: GetMatrixProjection() to rlGetMatrixProjection()    
+[core] RENAMED: GetMatrixModelview() to rlGetMatrixModelview()
+[core] RENAMED: GetMatrixProjection() to rlGetMatrixProjection()
 [core] RENAMED: GetShaderDefault() to rlGetShaderDefault()
 [core] RENAMED: GetTextureDefault() to rlGetTextureDefault()
 [core] REMOVED: GetShapesTexture()
@@ -186,7 +579,7 @@ Detailed changes:
 [core] REDESIGNED: Compresion API to use sdefl/sinfl libs
 [rlgl] ADDED: SUPPORT_GL_DETAILS_INFO config flag
 [rlgl] REMOVED: GenTexture*() functions (#721)
-[rlgl] REVIEWED: rlLoadShaderDefault() 
+[rlgl] REVIEWED: rlLoadShaderDefault()
 [rlgl] REDESIGNED: rlLoadExtensions(), more details exposed
 [raymath] REVIEWED: QuaternionFromEuler() (#1651)
 [raymath] REVIEWED: MatrixRotateZYX() (#1642)
@@ -221,7 +614,7 @@ Detailed changes:
 [utils] ADDED: SetLoadFileTextCallback()
 [utils] ADDED: SetSaveFileTextCallback()
 [examples] ADDED: text_draw_3d (#1689) by @Demizdor
-[examples] ADDED: textures_poly (#1677) by @chriscamacho 
+[examples] ADDED: textures_poly (#1677) by @chriscamacho
 [examples] ADDED: models_gltf_model (#1551) by @object71
 [examples] RENAMED: shaders_rlgl_mesh_instanced to shaders_mesh_intancing
 [examples] REDESIGNED: shaders_rlgl_mesh_instanced by @moliad
@@ -247,11 +640,11 @@ KEY CHANGES:
  - [core] ADDED: PLATFORM_DRM to support RPI4 and other devices (#1388) by @kernelkinetic
  - [core] REDESIGNED: Window states management system through FLAGS
  - [rlgl] ADDED: RenderBatch type and related functions to allow custom batching (internal only)
- - [rlgl] REDESIGNED: Framebuffers API to support multiple attachment types (#721) 
+ - [rlgl] REDESIGNED: Framebuffers API to support multiple attachment types (#721)
  - [textures] REDESIGNED: Image*() functions, big performance improvements (software rendering)
  - [*] REVIEWED: Multiple functions to replace file accesses by memory accesses
  - [*] ADDED: GitHub Actions CI to support multiple raylib build configurations
- 
+
 Detailed changes:
 [core] ADDED: SetWindowState() / ClearWindowState() -> New flags added!
 [core] ADDED: IsWindowFocused()
@@ -259,7 +652,7 @@ Detailed changes:
 [core] ADDED: GetMonitorRefreshRate() (#1289) by @Shylie
 [core] ADDED: IsCursorOnScreen() (#1262) by @ChrisDill
 [core] ADDED: SetMouseCursor() and GetMouseCursor() for standard Desktop cursors (#1407) by @chances
-[core] REMOVED: struct RenderTexture2D: depthTexture variable 
+[core] REMOVED: struct RenderTexture2D: depthTexture variable
 [core] REMOVED: HideWindow() / UnhideWindow() -> Use SetWindowState()
 [core] REMOVED: DecorateWindow() / UndecorateWindow() -> Use SetWindowState()
 [core] RENAMED: GetExtension() to GetFileExtension()
@@ -271,7 +664,7 @@ Detailed changes:
 [core] REVIEWED: GetPrevDirectoryPath() fixes on Unix-like systems (#1246) by @ivan-cx
 [core] REPLACED: rgif.h by msf_gif.h for automatic gif recording
 [core] REDESIGNED: GetMouseWheelMove() to return float movement for precise scrolling (#1397) by @Doy-lee
-[core] REDESIGNED: GetKeyPressed(), and added GetCharPressed() (#1336) 
+[core] REDESIGNED: GetKeyPressed(), and added GetCharPressed() (#1336)
 [core] UWP rework with improvements (#1231) by @Rover656
 [core] Gamepad axis bug fixes and improvement (#1228) by @mmalecot
 [core] Updated joystick mappings with latest version of gamecontrollerdb (#1381) by @coderoth
@@ -293,19 +686,19 @@ Detailed changes:
 [raymath] ADDED: Vector2LengthSqr() and Vector3LengthSqr() (#1248) by @ThePituLegend
 [raymath] ADDED: Vector2MoveTowards() function (#1233) by @anatagawa
 [raymath] REVIEWED: Some functions consistency (#1197) by @Not-Nik
-[raymath] REVIEWED: QuaternionFromVector3ToVector3() (#1263) by @jvocaturo 
+[raymath] REVIEWED: QuaternionFromVector3ToVector3() (#1263) by @jvocaturo
 [raymath] REVIEWED: MatrixLookAt(), optimized (#1442) by @RandomErrorMessage
 [shapes] ADDED: CheckCollisionLines(), by @Elkantor
 [text] Avoid [textures] functions dependencies
 [text] ADDED: Config flag: SUPPORT_TEXT_MANIPULATION
 [text] ADDED: LoadFontFromMemory() (TTF only) (#1327)
-[text] ADDED: UnloadFontData() 
-[text] RENAMED: FormatText() -> TextFormat() 
+[text] ADDED: UnloadFontData()
+[text] RENAMED: FormatText() -> TextFormat()
 [text] REVIEWED: Font struct, added charsPadding (#1432)
 [text] REVIEWED: TextJoin()
 [text] REVIEWED: TextReplace() (#1172)
 [text] REVIEWED: LoadBMFont() to load data from memory (#1232)
-[text] REVIEWED: GenImageFontAtlas(), fixed offset (#1171) 
+[text] REVIEWED: GenImageFontAtlas(), fixed offset (#1171)
 [text] REDESIGNED: LoadFontData(), reviewed input parameters
 [text] REDESIGNED: LoadFontDefault(), some code simplifications
 [text] REDESIGNED: LoadFontFromImage(), avoid LoadImageEx()
@@ -320,10 +713,10 @@ Detailed changes:
 [textures] ADDED: DrawTextureTiled() (#1291) - @Demizdor
 [textures] ADDED: UpdateTextureRec()
 [textures] ADDED: UnloadImageColors(), UnloadImagePalette(), UnloadWaveSamples()
-[textures] REMOVED: Config flag: SUPPORT_IMAGE_DRAWING 
+[textures] REMOVED: Config flag: SUPPORT_IMAGE_DRAWING
 [textures] REMOVED: LoadImageEx()
-[textures] REMOVED: LoadImagePro() 
-[textures] REMOVED: GetImageDataNormalized(), not exposed in the API 
+[textures] REMOVED: LoadImagePro()
+[textures] REMOVED: GetImageDataNormalized(), not exposed in the API
 [textures] RENAMED: ImageExtractPalette() to GetImagePalette()
 [textures] RENAMED: Fade() to ColorAlpha(), added #define for compatibility
 [textures] RENAMED: GetImageData() -> LoadImageColors()
@@ -335,7 +728,7 @@ Detailed changes:
 [textures] REVIEWED: ColorAlphaBlend(), support tint color
 [textures] REVIEWED: ColorAlphaBlend(), integers-version, optimized (#1218)
 [textures] REVIEWED: ImageDraw(), consider negative source offset properly (#1283)
-[textures] REVIEWED: ImageDraw(), optimizations test (#1218) 
+[textures] REVIEWED: ImageDraw(), optimizations test (#1218)
 [textures] REVIEWED: ImageResizeCanvas(), optimization (#1218)
 [textures] REVIEWED: ExportImage(), optimized
 [textures] REVIEWED: ImageAlphaPremultiply(), optimization
@@ -359,27 +752,27 @@ Detailed changes:
 [textures] REDESIGNED: ImageDraw(), optimization (#1218)
 [textures] REDESIGNED: ImageAlphaClear(), optimized (#1218)
 [textures] REDESIGNED: ExportImageAsCode() to use memory buffer (#1232)
-[textures] REDESIGNED: ColorFromHSV() 
+[textures] REDESIGNED: ColorFromHSV()
 [models] ADDED: DrawTriangle3D() and DrawTriangleStrip3D()
-[models] ADDED: UnloadModelKeepMeshes() 
+[models] ADDED: UnloadModelKeepMeshes()
 [models] REVIEWED: LoadModel(), avoid loading texcoords and normals from model if not existent
 [models] REVIEWED: GenMeshCubicmap(), added comments and simplification
 [models] REVIEWED: GenMeshCubicmap(), fixed generated normals (#1244) by @GoldenThumbs
-[models] REVIEWED: GenMeshPoly(), fixed buffer overflow (#1269) by @frithrah 
+[models] REVIEWED: GenMeshPoly(), fixed buffer overflow (#1269) by @frithrah
 [models] REVIEWED: LoadOBJ(): Allow for multiple materials in obj files (#1408) by @chriscamacho and @codifies
 [models] REVIEWED: LoadIQM() materials loading (#1227) by @sikor666
 [models] REVIEWED: LoadGLTF() to read from memory buffer
 [models] REVIEWED: UpdateMesh(), fix extra memory allocated when updating color buffer (#1271) by @4yn
 [models] REVIEWED: MeshNormalsSmooth() (#1317) by @seanpringle
 [models] REVIEWED: DrawGrid() (#1417)
-[models] REDESIGNED: ExportMesh() to use memory buffer (#1232) 
+[models] REDESIGNED: ExportMesh() to use memory buffer (#1232)
 [models] REDESIGNED: LoadIQM() and LoadModelAnimations() to use memory buffers
 [audio] ADDED: LoadWaveFromMemory() (#1327)
 [audio] REMOVED: SetMusicLoopCount()
 [audio] REVIEWED: Several functions, sampleCount vs frameCount (#1423)
 [audio] REVIEWED: SaveWAV() to use memory write insted of file
-[audio] REVIEWED: LoadMusicStream(), support WAV music streaming (#1198) 
-[audio] REVIEWED: Support multiple WAV sampleSize for MusicStream (#1340) 
+[audio] REVIEWED: LoadMusicStream(), support WAV music streaming (#1198)
+[audio] REVIEWED: Support multiple WAV sampleSize for MusicStream (#1340)
 [audio] REVIEWED: SetAudioBufferPitch()
 [audio] REDESIGNED: Audio looping system
 [audio] REDESIGNED: LoadSound(): Use memory loading (WAV, OGG, MP3, FLAC) (#1312)
@@ -413,9 +806,9 @@ Detailed changes:
 [build] Updated Android build for Linux, supporting ANDROID_NDK at compile time by @branlix3000
 [build] Updated VSCode project template tasks
 [build] Updated VS2017.UWP project template by @Rover656
-[build] Updated Android build pipeline 
+[build] Updated Android build pipeline
 [build] REMOVED: AppVeyor and Travis CI build systems
-[*] Moved raysan5/raylib/games to independent repo: raysan5/raylib-games 
+[*] Moved raysan5/raylib/games to independent repo: raysan5/raylib-games
 [*] Replaced several examples resources with more open licensed alternatives
 [*] Updated BINDINGS.md with NEW bindings and added raylib version binding!
 [*] Updated all external libraries to latest versions
@@ -425,7 +818,7 @@ Detailed changes:
 Release:     raylib 3.0 (01 April 2020)
 -----------------------------------------------
 KEY CHANGES:
- - Global context states used on all modules. 
+ - Global context states used on all modules.
  - Custom memory allocators for all modules and dependencies.
  - Centralized file access system and memory data loading.
  - Structures reviewed to reduce size and always be used as pass-by-value.
@@ -434,7 +827,7 @@ KEY CHANGES:
  - text module reviewed to improve fonts generation and text management functions.
  - Multiple new examples added and categorized examples table.
  - GitHub Actions CI implemented for Windows, Linux and macOS.
- 
+
 Detailed changes:
 [build] ADDED: VS2017.ANGLE project, by @msmshazan
 [build] ADDED: VS2017 project support for x64 platform configuration
@@ -668,7 +1061,7 @@ Detailed changes:
 [rlgl] ADDED: SetShaderValueTexture() - Set shader uniform value for texture
 [rlgl] ADDED: BeginScissorMode() - Begin scissor mode (define screen area for following drawing)
 [rlgl] ADDED: EndScissorMode() - End scissor mode
-[rlgl] ADDED: SetVrConfiguration() - Set stereo rendering configuration parameters 
+[rlgl] ADDED: SetVrConfiguration() - Set stereo rendering configuration parameters
 [rlgl] REVIEWED: InitVrSimulator() - No input parameter required, use SetVrConfiguration()
 [text] REVIEWED: LoadFontEx() - Reorder function parameters
 [text] REVIEWED: LoadFontData() - Reorder function parameters
@@ -861,10 +1254,10 @@ Detailed changes:
 -----------------------------------------------
 Release:     raylib 1.8.0 (Oct 2017)
 -----------------------------------------------
-NOTE: 
-  In this release, multiple parts of the library have been reviewed (again) for consistency and simplification. 
+NOTE:
+  In this release, multiple parts of the library have been reviewed (again) for consistency and simplification.
   It exposes more than 30 new functions in comparison with previous version and it improves overall programming experience.
-  
+
 BIG CHANGES:
   - New Image generation functions: Gradient, Checked, Noise, Cellular...
   - New Mesh generation functions: Cube, Sphere, Cylinder, Torus, Knot...
@@ -951,9 +1344,9 @@ detailed changes:
 -----------------------------------------------
 Release:     raylib 1.7.0 (20 May 2017)
 -----------------------------------------------
-NOTE: 
-  In this new raylib release, multiple parts of the library have been reviewed for consistency and simplification. 
-  It exposes almost 300 functions, around 30 new functions in comparison with previous version and, again, 
+NOTE:
+  In this new raylib release, multiple parts of the library have been reviewed for consistency and simplification.
+  It exposes almost 300 functions, around 30 new functions in comparison with previous version and, again,
   it sets a stepping stone towards raylib future.
 
 BIG changes:
@@ -1047,8 +1440,8 @@ other changes:
 -----------------------------------------------
 Release:     raylib 1.6.0 (20 November 2016)
 -----------------------------------------------
-NOTE: 
-  This new raylib version commemorates raylib 3rd anniversary and represents another complete review of the library. 
+NOTE:
+  This new raylib version commemorates raylib 3rd anniversary and represents another complete review of the library.
   It includes some interesting new features and is a stepping stone towards raylib future.
 
 HUGE changes:
@@ -1104,8 +1497,8 @@ other changes:
 -----------------------------------------------
 Release:     raylib 1.5.0 (18 July 2016)
 -----------------------------------------------
-NOTE: 
-  Probably this new version is the biggest boost of the library ever, lots of parts of the library have been redesigned, 
+NOTE:
+  Probably this new version is the biggest boost of the library ever, lots of parts of the library have been redesigned,
   lots of bugs have been solved and some **AMAZING** new features have been added.
 
 HUGE changes:
@@ -1149,7 +1542,7 @@ other changes:
 [rlgl] Replaced SetBlendMode() by: BeginBlendMode() - EndBlendMode()
 [rlgl] Added functions to customize internal matrices: SetMatrixProjection(), SetMatrixModelview()
 [rlgl] Unified internal shaders to only one default shader
-[rlgl] Added support for render to texture (RenderTexture2D): 
+[rlgl] Added support for render to texture (RenderTexture2D):
           LoadRenderTexture() - UnloadRenderTexture()
           BeginTextureMode() - EndTextureMode()
 [rlgl] Removed SetShaderMap*() functions
@@ -1195,7 +1588,7 @@ other changes:
 -----------------------------------------------
 Release:     raylib 1.4.0 (22 February 2016)
 -----------------------------------------------
-NOTE: 
+NOTE:
   This version supposed another big improvement for raylib, including new modules and new features.
   More than 30 new functions have been added to previous raylib version.
   Around 8 new examples and +10 new game samples have been added.
@@ -1233,7 +1626,7 @@ other changes:
 -----------------------------------------------
 Release:     raylib 1.3.0 (01 September 2015)
 -----------------------------------------------
-NOTE: 
+NOTE:
   This version supposed a big boost for raylib, new modules have been added with lots of features.
   Most of the modules have been completely reviewed to accomodate to the new features.
   Over 50 new functions have been added to previous raylib version.
@@ -1249,13 +1642,13 @@ BIG changes:
 other changes:
 
 [rlgl] Added check for OpenGL supported extensions
-[rlgl] Added function SetBlenMode() to select some predefined blending modes 
+[rlgl] Added function SetBlenMode() to select some predefined blending modes
 [core] Added support for drop&drag of external files into running program
 [core] Added functions ShowCursor(), HideCursor(), IsCursorHidden()
 [core] Renamed function SetFlags() to SetConfigFlags()
 [shapes] Simplified some functions to improve performance
 [textures] Review of Image struct to support multiple data formats
-[textures] Added function LoadImageEx() 
+[textures] Added function LoadImageEx()
 [textures] Added function LoadImageRaw()
 [textures] Added function LoadTextureEx()
 [textures] Simplified function parameters LoadTextureFromImage()
@@ -1313,7 +1706,7 @@ Update:     raylib 1.2.1 (17 October 2014) (Small Fixes Update)
 -----------------------------------------------
 Release:     raylib 1.2 (16 September 2014)
 -----------------------------------------------
-NOTE: 
+NOTE:
   This version supposed a complete redesign of the [core] module to support Android and Raspberry Pi.
   Multiples modules have also been tweaked to accomodate to the new platforms, specially [rlgl]
 
@@ -1363,7 +1756,7 @@ Release:     raylib 1.1.1 (22 July 2014)
 -----------------------------------------------
 Release:     raylib 1.1.0 (19 April 2014)
 -----------------------------------------------
-NOTE: 
+NOTE:
   This version supposed a complete internal redesign of the library to support OpenGL 3.3+ and OpenGL ES 2.0.
   New module [rlgl] has been added to 'translate' immediate mode style functions (i.e. rlVertex3f()) to GL 1.1, 3.3+ or ES2.
   Another new module [raymath] has also been added with lot of useful 3D math vector-matrix-quaternion functions.
@@ -1399,7 +1792,7 @@ Release:     raylib 1.0.6 (16 March 2014)
 [core] Removed unused lighting-system code
 [core] Removed SetPerspective() function, calculated directly
 [core] Unload and reload default font on fullscreen toggle
-[core] Corrected bug gamepad buttons checking if no gamepad available 
+[core] Corrected bug gamepad buttons checking if no gamepad available
 [texture] DrawTextureV() - Added, to draw using Vector2 for position
 [texture] LoadTexture() - Redesigned, now uses LoadImage() + CreateTexture()
 [text] FormatText() - Corrected memory leak bug
@@ -1415,7 +1808,7 @@ Update:     raylib 1.0.5 (28 January 2014)
 [core] GetMouseWheelMove() - Added, check mouse wheel Y movement
 [texture] CreateTexture2D() renamed to CreateTexture()
 [models] LoadHeightmap() - Added, Heightmap can be loaded as a Model
-[tool] rREM updated, now supports (partially) drag and drop of files 
+[tool] rREM updated, now supports (partially) drag and drop of files
 
 -----------------------------------------------
 Release:     raylib 1.0.4 (23 January 2014)
