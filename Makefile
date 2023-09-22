@@ -36,6 +36,7 @@ PROJECT_PREFIX = ${_COLOR_BEGIN}${PROJECT_FULL_NAME}:${_COLOR_END}
 
 BINARY_PATH = bin
 INCLUDE_PATH = include
+LIBRARY_PATH = ./lib
 SOURCE_PATH = src
 
 OBJECTS = \
@@ -44,9 +45,9 @@ OBJECTS = \
 TARGETS = ${BINARY_PATH}/${PROJECT_NAME}.out
 
 CC ?= gcc
-CFLAGS = -D_DEFAULT_SOURCE -g -I${INCLUDE_PATH} -I../${INCLUDE_PATH} \
-	-I${RAYLIB_INCLUDE_PATH} -O2 -std=c99
-LDFLAGS = -L${LIBRARY_PATH} -L${RAYLIB_LIBRARY_PATH}
+CFLAGS = -D_DEFAULT_SOURCE -g -I${INCLUDE_PATH} -I${RAYLIB_INCLUDE_PATH} \
+	-O2 -std=c99
+LDFLAGS = -L${RAYLIB_LIBRARY_PATH}
 LDLIBS = -lraylib -ldl -lGL -lm -lpthread -lrt -lX11
 
 # CFLAGS += -fsanitize=address -Wall -Werror -Wpedantic
@@ -70,7 +71,16 @@ ${TARGETS}: ${OBJECTS}
 post-build:
 	@printf "${PROJECT_PREFIX} Build complete.\n"
 
+raylib:
+	@printf "${PROJECT_PREFIX} Cloning raylib to ${LIBRARY_PATH}...\n"
+	@git clone https://github.com/raysan5/raylib ${LIBRARY_PATH}/raylib \
+		> /dev/null 2>&1 || true
+	@printf "${PROJECT_PREFIX} Attempting to build raylib...\n"
+	@cd ${LIBRARY_PATH}/raylib/src && ${MAKE} clean > /dev/null 2>&1 \
+		&& ${MAKE} -j`nproc` > /dev/null 2>&1
+	@printf "${PROJECT_PREFIX} Build complete.\n"
+
 clean:
 	@printf "${PROJECT_PREFIX} Cleaning up.\n"
 	@rm -f ${SOURCE_PATH}/*.data ${SOURCE_PATH}/*.exe ${SOURCE_PATH}/*.js \
-	${SOURCE_PATH}/*.html ${SOURCE_PATH}/*.out ${SOURCE_PATH}/*.wasm
+		${SOURCE_PATH}/*.html ${SOURCE_PATH}/*.out ${SOURCE_PATH}/*.wasm
