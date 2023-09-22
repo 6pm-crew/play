@@ -1,4 +1,34 @@
+/*
+    Copyright (c) 2023 6PM CREW <https://github.com/6pm-crew>
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+*/
+
+/* Includes ============================================================================= */
+
 #include "raylib.h"
+
+/* Typedefs ============================================================================= */
+
+// TODO: `typedef`로 선언한 구조체나 유니온 등의 자료형 정의하기...
+
+/* Macros =============================================================================== */
 
 #define TARGET_FPS         60
 
@@ -6,6 +36,20 @@
 #define SCREEN_HEIGHT      600
 
 #define BACKGROUND_COLOR   ((Color) { 26, 26, 26, 255 })
+
+/* Constants ============================================================================ */
+
+// TODO: 게임에 사용되는 상수 정의하기...
+
+/* Private Variables ==================================================================== */
+
+// TODO: 게임에 사용되는 변수 정의하기...
+
+/* Private Function Prototypes ========================================================== */
+
+// TODO: `static` 접근 제한자으로 함수 선언하기...
+
+/* Public Functions ===================================================================== */
 
 int main(void) {
     // 게임 창을 생성한다.
@@ -57,3 +101,7 @@ int main(void) {
 
     return 0;
 }
+
+/* Private Functions ==================================================================== */
+
+// TODO: `static` 접근 제한자으로 선언된 함수의 내용 정의하기...

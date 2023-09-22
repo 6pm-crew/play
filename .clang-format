@@ -1,54 +1,84 @@
-﻿# https://releases.llvm.org/6.0.0/tools/clang/docs/ClangFormatStyleOptions.html
+﻿#
+# Copyright (c) 2023 6PM CREW <https://github.com/6pm-crew>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
 
-# LLVM 스타일을 기반으로 한 C++ 코딩 스타일.
+# https://releases.llvm.org/6.0.0/tools/clang/docs/ClangFormatStyleOptions.html
+
+---
+
 BasedOnStyle: LLVM
-Language: Cpp
-
-# 공백 설정
-SpaceAfterCStyleCast: true
-SpaceAfterTemplateKeyword: false
-SpaceBeforeAssignmentOperators: true
-SpaceBeforeParens: ControlStatements
-SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 1
-SpacesInAngles: false
-SpacesInCStyleCastParentheses: false
-SpacesInContainerLiterals: false
-SpacesInParentheses: false
-SpacesInSquareBrackets: false
-
-# 들여쓰기 설정
-IndentCaseLabels: true
-IndentWidth: 4
-IndentWrappedFunctionNames: false
-TabWidth: 4
-UseTab: false
-
-# 코드 정렬 설정
-AlignAfterOpenBracket: Align
-# AlignConsecutiveAssignments: false
-# AlignConsecutiveDeclarations: false
+AlignAfterOpenBracket: DontAlign
 AlignEscapedNewlines: Left
-AlignTrailingComments: true
-AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: false
-# BinPackArguments: false
-# BinPackParameters: false
-# BreakBeforeBraces: Attach
-BreakBeforeInheritanceComma: false
-SortIncludes: true
-SortUsingDeclarations: true
-
-# 포인터 변수 스타일 설정
-DerivePointerAlignment: false
-PointerAlignment: Right
-
-# 나머지 스타일 설정
-AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: false
+AlignOperands: 'true'
+AlignTrailingComments: 'true'
+AllowAllConstructorInitializersOnNextLine: 'true'
+AllowAllParametersOfDeclarationOnNextLine: 'false'
+AllowShortBlocksOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'false'
 AllowShortFunctionsOnASingleLine: None
-AllowShortIfStatementsOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
-ColumnLimit: 0
-MaxEmptyLinesToKeep: 1
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: 'true'
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: 'false'
+BinPackArguments: 'false'
+BinPackParameters: 'false'
+BreakAfterJavaFieldAnnotations: 'true'
+BreakBeforeTernaryOperators: 'true'
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
+BreakStringLiterals: 'true'
+ColumnLimit: '0'
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
+ContinuationIndentWidth: '4'
+Cpp11BracedListStyle: 'false'
+DerivePointerAlignment: 'false'
+FixNamespaceComments: 'false'
+IndentCaseLabels: 'true'
+IndentPPDirectives: BeforeHash
+IndentWidth: '4'
+KeepEmptyLinesAtTheStartOfBlocks: 'false'
+Language: Cpp
+MaxEmptyLinesToKeep: '1'
+NamespaceIndentation: All
+PointerAlignment: Right
+ReflowComments: 'false'
+SortIncludes: 'false'
+SortUsingDeclarations: 'false'
+SpaceAfterCStyleCast: 'true'
+SpaceAfterLogicalNot: 'false'
+SpaceAfterTemplateKeyword: 'false'
+SpaceBeforeAssignmentOperators: 'true'
+SpaceBeforeCpp11BracedList: 'true'
+SpaceBeforeCtorInitializerColon: 'false'
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: 'true'
+SpaceInEmptyParentheses: 'false'
+SpacesBeforeTrailingComments: '2'
+SpacesInAngles: 'false'
+SpacesInCStyleCastParentheses: 'true'
+SpacesInContainerLiterals: 'false'
+SpacesInParentheses: 'false'
+SpacesInSquareBrackets: 'false'
+Standard: Cpp11
+TabWidth: '4'
+UseTab: Never
+
+...
