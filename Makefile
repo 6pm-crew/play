@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 jdeokkim
+# Copyright (c) 2023 6PM CREW <https://github.com/6pm-crew>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,100 +20,67 @@
 # SOFTWARE.
 #
 
+.POSIX:
+
 .PHONY: all clean
+.PRAGMA: posix_202x
+.SUFFIXES: .c .exe .o .out
 
-_COLOR_BEGIN := $(shell tput setaf 13)
-_COLOR_END := $(shell tput sgr0)
+_COLOR_BEGIN = \033[1;91m
+_COLOR_END = \033[m
 
-RAYLIB_PATH ?= lib/raylib-slim
+PROJECT_NAME = play
+PROJECT_FULL_NAME = 6pm-crew/play
 
-PROJECT_NAME := play
-PROJECT_FULL_NAME := 6pm-crew/play
+PROJECT_PREFIX = ${_COLOR_BEGIN}${PROJECT_FULL_NAME}:${_COLOR_END}
 
-PROJECT_PREFIX := $(_COLOR_BEGIN)$(PROJECT_FULL_NAME):$(_COLOR_END)
+BINARY_PATH = bin
+INCLUDE_PATH = include
+LIBRARY_PATH = ./lib
+SOURCE_PATH = src
 
-BINARY_PATH := bin
-INCLUDE_PATH := include
-LIBRARY_PATH := lib
-SOURCE_PATH := src
+OBJECTS = \
+	${SOURCE_PATH}/main.o
 
-RESOURCE_PATH := res
+TARGETS = ${BINARY_PATH}/${PROJECT_NAME}.out
 
-INCLUDE_PATH += $(RAYLIB_PATH)/src
-LIBRARY_PATH += $(RAYLIB_PATH)/src
+CC ?= gcc
+CFLAGS = -D_DEFAULT_SOURCE -g -I${INCLUDE_PATH} -I${RAYLIB_INCLUDE_PATH} \
+	-O2 -std=c99
+LDFLAGS = -L${RAYLIB_LIBRARY_PATH}
+LDLIBS = -lraylib -ldl -lGL -lm -lpthread -lrt -lX11
 
-SOURCES := $(SOURCE_PATH)/main.c
-OBJECTS := $(SOURCES:.c=.o)
-
-TARGETS := $(BINARY_PATH)/$(PROJECT_NAME).out
-
-HOST_PLATFORM := UNKNOWN
-
-ifeq ($(OS),Windows_NT)
-	ifeq "$(findstring ;,$(PATH))" ";"
-		PROJECT_PREFIX := $(PROJECT_FULL_NAME):
-	endif
-
-# MINGW-W64 or MSYS2...?
-	HOST_PLATFORM := WINDOWS
-else
-	UNAME = $(shell uname 2>/dev/null)
-
-	ifeq ($(UNAME),Linux)
-		HOST_PLATFORM = LINUX
-	endif
-endif
-
-ifeq ($(PLATFORM),WINDOWS)
-	LIBRARY_PATH += $(RAYLIB_PATH)/src
-endif
-
-CC := gcc
-CFLAGS := -D_DEFAULT_SOURCE -g $(INCLUDE_PATH:%=-I%) -O2 -std=gnu99
-LDFLAGS := $(LIBRARY_PATH:%=-L%)
-LDLIBS := -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
-
-PLATFORM := $(HOST_PLATFORM)
-
-ifeq ($(PLATFORM),WINDOWS)
-	TARGETS := $(BINARY_PATH)/$(PROJECT_NAME).exe
-
-	ifneq ($(HOST_PLATFORM),WINDOWS)
-		CC := x86_64-w64-mingw32-gcc
-	endif
-
-	LDLIBS := -lraylib -lopengl32 -lgdi32 -lwinmm -lpthread
-else ifeq ($(PLATFORM),WEB)
-	TARGETS := $(BINARY_PATH)/$(PROJECT_NAME).html
-
-	CC := emcc
-
-# https://github.com/emscripten-core/emscripten/blob/main/src/settings.js
-	WEBFLAGS := -s ASYNCIFY -s FORCE_FILESYSTEM -s INITIAL_MEMORY=67108864 -s USE_GLFW=3
-	WEBFLAGS += --preload-file $(RESOURCE_PATH) --shell-file $(RESOURCE_PATH)/html/shell.html
-endif
+# CFLAGS += -fsanitize=address -Wall -Werror -Wpedantic
 
 all: pre-build build post-build
 
 pre-build:
-	@echo "$(PROJECT_PREFIX) Using: '$(CC)' to build this project."
-    
-build: $(TARGETS)
+	@printf "${PROJECT_PREFIX} Using: '${CC}' to build this project.\n"
 
-$(SOURCE_PATH)/%.o: $(SOURCE_PATH)/%.c
-	@echo "$(PROJECT_PREFIX) Compiling: $@ (from $<)"
-	@$(CC) -c $< -o $@ $(CFLAGS)
-    
-$(TARGETS): $(OBJECTS)
-	@mkdir -p $(BINARY_PATH)
-	@echo "$(PROJECT_PREFIX) Linking: $(TARGETS)"
-	@$(CC) $(OBJECTS) -o $(TARGETS) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(WEBFLAGS)
-    
+build: ${TARGETS}
+
+.c.o:
+	@printf "${PROJECT_PREFIX} Compiling: $@ (from $<)\n"
+	@${CC} -c $< -o $@ ${CFLAGS}
+
+${TARGETS}: ${OBJECTS}
+	@mkdir -p ${BINARY_PATH}
+	@printf "${PROJECT_PREFIX} Linking: ${TARGETS}\n"
+	@${CC} ${OBJECTS} -o ${TARGETS} ${LDFLAGS} ${LDLIBS} ${WEBFLAGS}
+
 post-build:
-	@echo "$(PROJECT_PREFIX) Build complete."
+	@printf "${PROJECT_PREFIX} Build complete.\n"
+
+raylib:
+	@printf "${PROJECT_PREFIX} Cloning raylib to ${LIBRARY_PATH}...\n"
+	@git clone https://github.com/raysan5/raylib ${LIBRARY_PATH}/raylib \
+		> /dev/null 2>&1 || true
+	@printf "${PROJECT_PREFIX} Attempting to build raylib...\n"
+	@cd ${LIBRARY_PATH}/raylib/src && ${MAKE} clean > /dev/null 2>&1 \
+		&& ${MAKE} -j`nproc` ${RAYLIB_MAKE_FLAGS} > /dev/null 2>&1
+	@printf "${PROJECT_PREFIX} Build complete.\n"
 
 clean:
-	@echo "$(PROJECT_PREFIX) Cleaning up."
-	@rm -rf $(BINARY_PATH)/*.out
-	@rm -rf $(BINARY_PATH)/*.exe
-	@rm -rf $(SOURCE_PATH)/*.o
+	@printf "${PROJECT_PREFIX} Cleaning up.\n"
+	@rm -f ${SOURCE_PATH}/*.data ${SOURCE_PATH}/*.exe ${SOURCE_PATH}/*.js \
+		${SOURCE_PATH}/*.html ${SOURCE_PATH}/*.out ${SOURCE_PATH}/*.wasm
