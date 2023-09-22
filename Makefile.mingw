@@ -29,8 +29,8 @@ PROJECT_NAME = play
 PROJECT_FULL_NAME = 6pm-crew/play
 
 # TODO: Edit these values to match your raylib installation path!
-RAYLIB_INCLUDE_PATH ?= ../raylib/src
-RAYLIB_LIBRARY_PATH ?= ../raylib/src
+RAYLIB_INCLUDE_PATH ?= ./lib/raylib/src
+RAYLIB_LIBRARY_PATH ?= ./lib/raylib/src
 
 BINARY_PATH = bin
 INCLUDE_PATH = include
@@ -42,7 +42,7 @@ TARGETS = ${BINARY_PATH}/${PROJECT_NAME}.exe
 CC = x86_64-w64-mingw32-gcc
 CFLAGS = -D_DEFAULT_SOURCE -g -I${INCLUDE_PATH} -I../${INCLUDE_PATH} \
 	-I${RAYLIB_INCLUDE_PATH} -O2 -std=gnu99
-LDFLAGS = -L${LIBRARY_PATH} -L${RAYLIB_LIBRARY_PATH}
+LDFLAGS = -L${RAYLIB_LIBRARY_PATH}
 LDLIBS = -lraylib -lopengl32 -lgdi32 -lwinmm -lpthread
 
 all:
