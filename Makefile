@@ -66,7 +66,7 @@ build: ${TARGETS}
 ${TARGETS}: ${OBJECTS}
 	@mkdir -p ${BINARY_PATH}
 	@printf "${PROJECT_PREFIX} Linking: ${TARGETS}\n"
-	${CC} ${OBJECTS} -o ${TARGETS} ${LDFLAGS} ${LDLIBS} ${WEBFLAGS}
+	@${CC} ${OBJECTS} -o ${TARGETS} ${LDFLAGS} ${LDLIBS} ${WEBFLAGS}
 
 post-build:
 	@printf "${PROJECT_PREFIX} Build complete.\n"
@@ -77,7 +77,7 @@ raylib:
 		> /dev/null 2>&1 || true
 	@printf "${PROJECT_PREFIX} Attempting to build raylib...\n"
 	@cd ${LIBRARY_PATH}/raylib/src && ${MAKE} clean > /dev/null 2>&1 \
-		&& ${MAKE} -j`nproc` > /dev/null 2>&1
+		&& ${MAKE} -j`nproc` ${RAYLIB_MAKE_FLAGS} > /dev/null 2>&1
 	@printf "${PROJECT_PREFIX} Build complete.\n"
 
 clean:

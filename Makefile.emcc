@@ -53,5 +53,8 @@ all:
 	@${MAKE} TARGETS="${TARGETS}" CC=${CC} CFLAGS="${CFLAGS}" \
 	LDFLAGS="${LDFLAGS}" LDLIBS="${LDLIBS}"
 
+raylib:
+	@${MAKE} $@ RAYLIB_MAKE_FLAGS="PLATFORM=PLATFORM_WEB -B"
+
 clean:
 	@${MAKE} $@

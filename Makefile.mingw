@@ -49,5 +49,9 @@ all:
 	@${MAKE} TARGETS="${TARGETS}" CC=${CC} CFLAGS="${CFLAGS}" \
 	LDFLAGS="${LDFLAGS}" LDLIBS="${LDLIBS}"
 
+raylib:
+	@${MAKE} $@ RAYLIB_MAKE_FLAGS="CC=x86_64-w64-mingw32-gcc \
+	AR=x86_64-w64-mingw32-ar OS=Windows_NT"
+
 clean:
 	@${MAKE} $@
