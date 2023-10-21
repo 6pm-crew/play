@@ -1,18 +1,31 @@
-# 6PM 동아리에서 사용하는 raylib 템플렛
+# 6pm-crew/play
 
-raylib template for 6pm-crew
+"6pm-crew/play"는 raylib 실습 환경 구축을 위한 템플릿 저장소입니다.
 
-## 설치 ( Install )
+## GNU/Linux 환경에서 GNU/Linux용 실행 파일 만들기
 
-```sh
-$ git clone https://github.com/6pm-crew/play && cd play
-$ git checkout dev
+```console
+$ make raylib && make
+```
+
+## GNU/Linux 환경에서 Windows용 실행 파일 만들기
+
+```console
 $ make -f Makefile.mingw raylib
 $ make -f Makefile.mingw
 ```
 
-## 의존성 ( Denpendency )
+## GNU/Linux 환경에서 WebAssembly 형태로 컴파일하기
 
-- git
-- gcc
-- make
+```console
+$ sudo apt install build-essential git
+$ git clone https://github.com/emscripten-core/emsdk && cd emsdk
+$ ./emsdk install latest
+$ ./emsdk activate latest
+$ source ./emsdk_env.sh
+```
+
+```console
+$ make -f Makefile.emcc raylib
+$ make -f Makefile.emcc
+```

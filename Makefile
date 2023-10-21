@@ -34,6 +34,10 @@ PROJECT_FULL_NAME = 6pm-crew/play
 
 PROJECT_PREFIX = ${_COLOR_BEGIN}${PROJECT_FULL_NAME}:${_COLOR_END}
 
+# TODO: Edit these values to match your raylib installation path!
+RAYLIB_INCLUDE_PATH ?= ./lib/raylib/src
+RAYLIB_LIBRARY_PATH ?= ./lib/raylib/src
+
 INCLUDE_PATH = include
 LIBRARY_PATH = ./lib
 SOURCE_PATH = src
